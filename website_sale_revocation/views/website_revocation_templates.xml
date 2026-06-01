@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="revocation_form_template" name="Revocation Form">
+        <t t-call="website.layout">
+            <div id="wrap" class="container oe_structure oe_empty oe_website_sale_revocation py-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <h1 class="mb-4">Revoke Contract</h1>
+                        <p class="text-muted">Use this form to easily and legally revoke your contract.</p>
+                        
+                        <form action="/shop/revocation/submit" method="post" class="js_website_submit_form">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            
+                            <div class="form-group mb-3">
+                                <label for="customer_name" class="form-label">Your Name *</label>
+                                <input type="text" name="customer_name" id="customer_name" class="form-control" t-att-value="customer_name" required="1"/>
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                <label for="customer_email" class="form-label">Your Email Address *</label>
+                                <input type="email" name="customer_email" id="customer_email" class="form-control" t-att-value="customer_email" required="1"/>
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                <label for="order_ref" class="form-label">Order Number / Contract Number</label>
+                                <input type="text" name="order_ref" id="order_ref" class="form-control" placeholder="e.g. SO00123"/>
+                            </div>
+                            
+                            <div class="form-group mb-4">
+                                <label for="reason" class="form-label">Reason (Optional)</label>
+                                <textarea name="reason" id="reason" class="form-control" rows="4"></textarea>
+                            </div>
+
+                            <div class="alert alert-info small">By clicking the button below, you bindingly initiate the revocation process. You will immediately receive a receipt confirmation.</div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100" id="submit_revocation_btn">
+                                Submit Revocation Bindingly
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="revocation_success_template" name="Revocation Successful">
+        <t t-call="website.layout">
+            <div class="container py-5 text-center">
+                <div class="text-success display-4 mb-4"><i class="fa fa-check-circle"/></div>
+                <h2>Revocation received</h2>
+                <p class="lead mt-3">Thank you. We have recorded your revocation under the reference <strong><t t-out="revocation.name"/></strong>.</p>
+                <p class="text-muted">An automated receipt confirmation with a timestamp has just been sent to your email address.</p>
+                <a href="/shop" class="btn btn-outline-primary mt-4">Back to Shop</a>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,23 @@
+{
+    'name': 'Website Order Withdrawal',
+    'version': '18.0.1.0.0',
+    'summary': 'Adds a legally compliant revocation/withdrawal button and backend management to Odoo Sales.',
+    'author': 'COMM-WAY GmbH',
+    'website': 'https://www.comm-way.com',
+    'support': 'office@comm-way.com',
+    'category': 'Website',
+    'depends': ['base', 'website', 'sale_management', 'mail'],
+    'data': [
+        'data/sequence.xml',
+        'data/email_template.xml',
+        'security/ir.model.access.csv',
+        'views/website_revocation_templates.xml',
+        'views/website_revocation_views.xml',
+    ],
+    'images': ['static/description/banner.png'],
+    'price': 59.00,
+    'currency': 'EUR',
+    'installable': True,
+    'application': False,
+    'license': 'OPL-1',
+}
