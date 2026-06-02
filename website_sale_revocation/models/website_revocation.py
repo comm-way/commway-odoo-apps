@@ -39,6 +39,10 @@ class WebsiteRevocation(models.Model):
         # Create records
         records = super(WebsiteRevocation, self).create(vals_list)
         
+        for record in records:
+            if record.partner_id:
+                record.message_subscribe(partner_ids=[record.partner_id.id])
+
         # Automatically trigger the order confirmation email
         records._send_receipt_confirmation_mail()
         
@@ -46,9 +50,8 @@ class WebsiteRevocation(models.Model):
         # Notification in the Odoo Center (Activity)
         # ==========================================
         for record in records:
-            # Define who will get notices
-            if record.sale_order_id and record.sale_order_id.user_id:
-                assignee_id = record.sale_order_id.user_id.id
+            if record.env.company.revocation_notification_user_id:
+                assignee_id = record.env.company.revocation_notification_user_id.id
             else:
                 assignee_id = self.env.ref('base.user_admin').id
             
@@ -83,48 +86,39 @@ class WebsiteRevocation(models.Model):
         self.ensure_one()
         self.write({'state': 'approved'})
         
-        raw_body = _("<p>Hello %s,</p><p>we have reviewed and accepted your revocation. The refund will be processed shortly.</p>") % self.customer_name
-        
-        mail_body = Markup(raw_body)
-        
-        self.message_post(body=mail_body, subtype_xmlid='mail.mt_note')
-        
         if self.customer_email:
-            mail_vals = {
-                'subject': _('Revocation Accepted: %s') % self.name,
-                'body_html': mail_body,
-                'email_to': self.customer_email,
-                'model': self._name,
-                'res_id': self.id,
-                'auto_delete': True,
-            }
-            self.env['mail.mail'].sudo().create(mail_vals).send()
+            template = self.env.ref('website_sale_revocation.email_template_revocation_accepted', raise_if_not_found=False)
+            if template:
+                # force_send=True sendet sofort, anstatt es in die Warteschlange zu legen
+                template.send_mail(self.id, force_send=True)
+                
+        msg = _("Revocation accepted and refund process initiated.")
+        self.message_post(body=msg, subtype_xmlid='mail.mt_note')
             
         self.activity_ids.action_done()
-            
         return True
 
-    def action_reject_revocation(self):
+    def action_reject(self):
         self.ensure_one()
         self.write({'state': 'rejected'})
         
-        raw_body = _("<p>Hello %s,</p><p>we have reviewed your revocation. Unfortunately, we cannot accept it.</p>") % self.customer_name
-        
-        mail_body = Markup(raw_body)
-        
-        self.message_post(body=mail_body, subtype_xmlid='mail.mt_note')
-        
         if self.customer_email:
-            mail_vals = {
-                'subject': _('Revocation Rejected: %s') % self.name,
-                'body_html': mail_body,
-                'email_to': self.customer_email,
-                'model': self._name,
-                'res_id': self.id,
-                'auto_delete': True,
-            }
-            self.env['mail.mail'].sudo().create(mail_vals).send()
-            
+            template = self.env.ref('website_sale_revocation.email_template_revocation_rejected', raise_if_not_found=False)
+            if template:
+                template.send_mail(self.id, force_send=True)
+                
+        msg = _("Revocation rejected. Customer notified.")
+        self.message_post(body=msg, subtype_xmlid='mail.mt_note')
+        
         self.activity_ids.action_done()
-            
         return True
+    
+    def write(self, vals):
+        res = super(WebsiteRevocation, self).write(vals)
+        
+        if 'partner_id' in vals:
+            for record in self:
+                if record.partner_id:
+                    record.message_subscribe(partner_ids=[record.partner_id.id])
+                    
+        return res

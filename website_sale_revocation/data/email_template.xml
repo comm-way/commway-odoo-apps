@@ -8,19 +8,77 @@
             <field name="email_to">{{ object.customer_email }}</field>
             <field name="lang">{{ object.env.lang }}</field>
             <field name="description">Sent automatically to customer upon submitting a revocation</field>
-            <field name="body_html" type="html">
-                <div style="margin: 0px; padding: 0px;">
-                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+            <field name="reply_to">{{ object.env.company.catchall_formatted or object.env.company.email_formatted }}</field>
+            <field name="body_html" type="html">            
+                <div style="margin: 0px; padding: 0px; font-family: 'Segoe UI', Arial, sans-serif;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px; color: #243746;">
                         Hello <t t-out="object.customer_name or 'Customer'"></t>,<br/><br/>
                         We hereby confirm the receipt of your revocation request.<br/>
                         Your reference number is: <strong><t t-out="object.name"></t></strong><br/><br/>
-                        We will review your request as quickly as possible and get back to you shortly.<br/><br/>
-                        Best regards,<br/>
-                        Your Customer Service Team
+                        We will review your request as quickly as possible and get back to you shortly.<br/><br/>                        
                     </p>
+                    
+                    <t t-set="assigned_user" t-value="object.env.company.revocation_notification_user_id or object.env.ref('base.user_admin')"/>
+                    
+                    <t t-if="assigned_user and assigned_user.signature">
+                        <br/>
+                        <div style="font-size: 13px; color: #243746;">
+                            <t t-out="assigned_user.signature"/>
+                        </div>
+                    </t>
                 </div>
             </field>
             <field name="auto_delete" eval="True"/>
+        </record>
+
+        <record id="email_template_revocation_accepted" model="mail.template">
+            <field name="name">Revocation Accepted</field>
+            <field name="model_id" ref="website_sale_revocation.model_website_revocation"/>
+            <field name="subject">Revocation Accepted: {{ object.name }}</field>
+            <field name="email_to">{{ object.customer_email }}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="reply_to">{{ object.env.company.catchall_formatted or object.env.company.email_formatted }}</field>
+            <field name="body_html" type="html">        
+                <div style="margin: 0px; padding: 0px; font-family: 'Segoe UI', Arial, sans-serif;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px; color: #243746;">
+                        Hello <t t-out="object.customer_name or 'Customer'"/>,<br/><br/>
+                        We have reviewed and accepted your revocation request for reference <strong><t t-out="object.name"/></strong>.<br/>
+                        The refund process has been initiated and will be completed shortly.<br/><br/>                    
+                    </p>
+                    
+                    <t t-if="user.signature">
+                        <br/>
+                        <div style="font-size: 13px; color: #243746;">
+                            <t t-out="user.signature or ''"/>
+                        </div>
+                    </t>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_template_revocation_rejected" model="mail.template">
+            <field name="name">Revocation Rejected</field>
+            <field name="model_id" ref="website_sale_revocation.model_website_revocation"/>
+            <field name="subject">Revocation Update: {{ object.name }}</field>
+            <field name="email_to">{{ object.customer_email }}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="reply_to">{{ object.env.company.catchall_formatted or object.env.company.email_formatted }}</field>
+            <field name="body_html" type="html">        
+                <div style="margin: 0px; padding: 0px; font-family: 'Segoe UI', Arial, sans-serif;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px; color: #243746;">
+                        Hello <t t-out="object.customer_name or 'Customer'"/>,<br/><br/>
+                        We have reviewed your revocation request for reference <strong><t t-out="object.name"/></strong>.<br/>
+                        Unfortunately, after careful review, we cannot accept your request at this time.<br/><br/>                    
+                    </p>
+                    
+                    <t t-if="user.signature">
+                        <br/>
+                        <div style="font-size: 13px; color: #243746;">
+                            <t t-out="user.signature or ''"/>
+                        </div>
+                    </t>                
+                </div>
+            </field>
         </record>
     </data>
 </odoo>

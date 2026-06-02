@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_revocation" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.revocation</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//app[@name='sale_management']" position="inside">
+                
+                <block title="Revocation Management" name="revocation_management">
+                    <setting string="Notification User" help="User who receives the task when a new revocation is submitted.">
+                        <field name="revocation_notification_user_id"/>
+                    </setting>
+                    <setting string="Privacy Policy URL" help="Link to your privacy policy for the frontend checkbox.">
+                        <field name="revocation_privacy_policy_url" placeholder="e.g. /privacy"/>
+                    </setting>
+                </block>
+                
+            </xpath>
+            
+        </field>
+    </record>
+</odoo>

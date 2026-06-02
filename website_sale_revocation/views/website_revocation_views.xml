@@ -21,12 +21,13 @@
     <record id="view_website_revocation_form" model="ir.ui.view">
         <field name="name">website.revocation.form</field>
         <field name="model">website.revocation</field>
+        <field name="priority">1</field>
         <field name="arch" type="xml">
             <form>
                 <header>
                     <button name="action_set_in_process" type="object" string="Set to In Review" invisible="state != 'draft'"/>
                     <button name="action_approve_and_refund" type="object" string="Accept &amp; Refund" class="oe_highlight" invisible="state in ['approved', 'rejected']"/>
-                    <button name="action_reject_revocation" type="object" string="Reject" invisible="state in ['approved', 'rejected']"/>
+                    <button name="action_reject" type="object" string="Reject" invisible="state in ['approved', 'rejected']"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,process,approved,rejected"/>
                 </header>
                 <sheet>

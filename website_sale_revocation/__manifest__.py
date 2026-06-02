@@ -11,6 +11,7 @@
         'data/sequence.xml',
         'data/email_template.xml',
         'security/ir.model.access.csv',
+        'views/res_config_settings_views.xml',
         'views/website_revocation_templates.xml',
         'views/website_revocation_views.xml',
     ],

@@ -6,308 +6,586 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 12:00+0000\n"
-"PO-Revision-Date: 2026-05-30 12:00+0000\n"
+"POT-Creation-Date: 2026-06-02 12:13+0000\n"
+"PO-Revision-Date: 2026-06-02 12:13+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
 #. module: website_sale_revocation
+#. odoo-python
+#: code:addons/website_sale_revocation/controllers/main.py:0
 msgid "<b>ATTENTION:</b> A revocation request (%s) has been submitted."
 msgstr "<b>ATTENTION:</b> A revocation request (%s) has been submitted."
 
 #. module: website_sale_revocation
-msgid "<b>Revocation accepted:</b> Follow-up processes have been initiated."
-msgstr "<b>Revocation accepted:</b> Follow-up processes have been initiated."
+#: model:mail.template,body_html:website_sale_revocation.email_template_revocation_accepted
+msgid ""
+"<div style=\"margin: 0px; padding: 0px; font-family: 'Segoe UI', Arial, sans-serif;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px; color: #243746;\">\n"
+"                    Hello <t t-out=\"object.customer_name or 'Customer'\"/>,<br/><br/>\n"
+"                    We have reviewed and accepted your revocation request for reference <strong><t t-out=\"object.name\"/></strong>.<br/>\n"
+"                    The refund process has been initiated and will be completed shortly.<br/><br/>\n"
+"                </p>\n"
+"                \n"
+"                <t t-if=\"user.signature\">\n"
+"                    <br/>\n"
+"                    <div style=\"font-size: 13px; color: #243746;\">\n"
+"                        <t t-out=\"user.signature or ''\"/>\n"
+"                    </div>\n"
+"                </t>\n"
+"            </div>\n"
+"        "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px; font-family: 'Segoe UI', Arial, sans-serif;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px; color: #243746;\">\n"
+"                    Hello <t t-out=\"object.customer_name or 'Customer'\"/>,<br/><br/>\n"
+"                    We have reviewed and accepted your revocation request for reference <strong><t t-out=\"object.name\"/></strong>.<br/>\n"
+"                    The refund process has been initiated and will be completed shortly.<br/><br/>\n"
+"                </p>\n"
+"                \n"
+"                <t t-if=\"user.signature\">\n"
+"                    <br/>\n"
+"                    <div style=\"font-size: 13px; color: #243746;\">\n"
+"                        <t t-out=\"user.signature or ''\"/>\n"
+"                    </div>\n"
+"                </t>\n"
+"            </div>\n"
+"        "
 
 #. module: website_sale_revocation
-msgid "<b>Revocation rejected:</b> The request was rejected."
-msgstr "<b>Revocation rejected:</b> The request was rejected."
+#: model:mail.template,body_html:website_sale_revocation.email_template_revocation_rejected
+msgid ""
+"<div style=\"margin: 0px; padding: 0px; font-family: 'Segoe UI', Arial, sans-serif;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px; color: #243746;\">\n"
+"                    Hello <t t-out=\"object.customer_name or 'Customer'\"/>,<br/><br/>\n"
+"                    We have reviewed your revocation request for reference <strong><t t-out=\"object.name\"/></strong>.<br/>\n"
+"                    Unfortunately, after careful review, we cannot accept your request at this time. Our customer service team will contact you with further details.<br/><br/>\n"
+"                </p>\n"
+"                \n"
+"                <t t-if=\"user.signature\">\n"
+"                    <br/>\n"
+"                    <div style=\"font-size: 13px; color: #243746;\">\n"
+"                        <t t-out=\"user.signature or ''\"/>\n"
+"                    </div>\n"
+"                </t>\n"
+"            </div>\n"
+"        "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px; font-family: 'Segoe UI', Arial, sans-serif;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px; color: #243746;\">\n"
+"                    Hello <t t-out=\"object.customer_name or 'Customer'\"/>,<br/><br/>\n"
+"                    We have reviewed your revocation request for reference <strong><t t-out=\"object.name\"/></strong>.<br/>\n"
+"                    Unfortunately, after careful review, we cannot accept your request at this time. Our customer service team will contact you with further details.<br/><br/>\n"
+"                </p>\n"
+"                \n"
+"                <t t-if=\"user.signature\">\n"
+"                    <br/>\n"
+"                    <div style=\"font-size: 13px; color: #243746;\">\n"
+"                        <t t-out=\"user.signature or ''\"/>\n"
+"                    </div>\n"
+"                </t>\n"
+"            </div>\n"
+"        "
 
 #. module: website_sale_revocation
-msgid "ATTENTION: Customer provided order number '%s' (not found in the system).\n\nReason:\n%s"
-msgstr "ATTENTION: Customer provided order number '%s' (not found in the system).\n\nReason:\n%s"
+#: model:mail.template,body_html:website_sale_revocation.email_template_revocation_receipt
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Hello <t t-out=\"object.customer_name or 'Customer'\"/>,<br/><br/>\n"
+"                        We hereby confirm the receipt of your revocation request.<br/>\n"
+"                        Your reference number is: <strong><t t-out=\"object.name\"/></strong><br/><br/>\n"
+"                        We will review your request as quickly as possible and get back to you shortly.<br/><br/>\n"
+"    </p>\n"
+"    \n"
+"    <t t-set=\"assigned_user\" t-value=\"object.env.company.revocation_notification_user_id or object.env.ref('base.user_admin')\"/>\n"
+"    <t t-if=\"assigned_user and assigned_user.signature\">\n"
+"    <br/>\n"
+"    <div style=\"font-size: 13px; color: #243746;\">\n"
+"       <t t-out=\"assigned_user.signature\"/>\n"
+"    </div>\n"
+"    </t>\n"
+"</div>\n"
+"        "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Hello <t t-out=\"object.customer_name or 'Customer'\"/>,<br/><br/>\n"
+"                        We hereby confirm the receipt of your revocation request.<br/>\n"
+"                        Your reference number is: <strong><t t-out=\"object.name\"/></strong><br/><br/>\n"
+"                        We will review your request as quickly as possible and get back to you shortly.<br/><br/>\n"
+"    </p>\n"
+"    \n"
+"    <t t-set=\"assigned_user\" t-value=\"object.env.company.revocation_notification_user_id or object.env.ref('base.user_admin')\"/>\n"
+"    <t t-if=\"assigned_user and assigned_user.signature\">\n"
+"    <br/>\n"
+"    <div style=\"font-size: 13px; color: #243746;\">\n"
+"       <t t-out=\"assigned_user.signature\"/>\n"
+"    </div>\n"
+"    </t>\n"
+"</div>\n"
+"        "
 
 #. module: website_sale_revocation
+#. odoo-python
+#: code:addons/website_sale_revocation/controllers/main.py:0
+msgid ""
+"ATTENTION: Customer provided order number '%s' (not found in the system).\n"
+"\n"
+"Reason:\n"
+"%s"
+msgstr ""
+"ATTENTION: Customer provided order number '%s' (not found in the system).\n"
+"\n"
+"Reason:\n"
+"%s"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.view_website_revocation_form
 msgid "Accept & Refund"
 msgstr "Accept & Refund"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields.selection,name:website_sale_revocation.selection__website_revocation__state__approved
 msgid "Accepted"
 msgstr "Accepted"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__message_needaction
 msgid "Action Needed"
 msgstr "Action Needed"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__activity_ids
 msgid "Activities"
 msgstr "Activities"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__activity_exception_decoration
 msgid "Activity Exception Decoration"
 msgstr "Activity Exception Decoration"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__activity_state
 msgid "Activity State"
 msgstr "Activity State"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__activity_type_icon
 msgid "Activity Type Icon"
 msgstr "Activity Type Icon"
 
 #. module: website_sale_revocation
-msgid "An automated receipt confirmation with a timestamp has just been sent to your email address."
-msgstr "An automated receipt confirmation with a timestamp has just been sent to your email address."
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_success_template
+msgid ""
+"An automated receipt confirmation with a timestamp has just been sent to "
+"your email address."
+msgstr ""
+"An automated receipt confirmation with a timestamp has just been sent to "
+"your email address."
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__message_attachment_count
 msgid "Attachment Count"
 msgstr "Attachment Count"
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_success_template
 msgid "Back to Shop"
 msgstr "Back to Shop"
 
 #. module: website_sale_revocation
-msgid "By clicking the button below, you bindingly initiate the revocation process. You will immediately receive a receipt confirmation."
-msgstr "By clicking the button below, you bindingly initiate the revocation process. You will immediately receive a receipt confirmation."
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
+msgid ""
+"By clicking the button below, you bindingly initiate the revocation process."
+" You will immediately receive a receipt confirmation."
+msgstr ""
+"By clicking the button below, you bindingly initiate the revocation process."
+" You will immediately receive a receipt confirmation."
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__create_uid
 msgid "Created by"
 msgstr "Created by"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__create_date
 msgid "Created on"
 msgstr "Created on"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__partner_id
 msgid "Customer"
 msgstr "Customer"
 
 #. module: website_sale_revocation
-msgid "Customer %s has submitted a revocation. Please check deadlines and process."
-msgstr "Customer %s has submitted a revocation. Please check deadlines and process."
+#. odoo-python
+#: code:addons/website_sale_revocation/models/website_revocation.py:0
+msgid ""
+"Customer %s has submitted a revocation. Please check deadlines and process."
+msgstr ""
+"Customer %s has submitted a revocation. Please check deadlines and process."
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.view_website_revocation_form
 msgid "Customer Data"
 msgstr "Customer Data"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__customer_name
 msgid "Customer Name"
 msgstr "Customer Name"
 
 #. module: website_sale_revocation
+#: model:ir.model,name:website_sale_revocation.model_website_revocation
 msgid "Customer Revocation"
 msgstr "Customer Revocation"
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.view_website_revocation_form
 msgid "Customer's Reason"
 msgstr "Customer's Reason"
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.view_website_revocation_form
 msgid "Details & Reference"
 msgstr "Details & Reference"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__display_name
 msgid "Display Name"
 msgstr "Display Name"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__customer_email
 msgid "Email"
 msgstr "Email"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__message_follower_ids
 msgid "Followers"
 msgstr "Followers"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__message_partner_ids
 msgid "Followers (Partners)"
 msgstr "Followers (Partners)"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome icon e.g. fa-tasks"
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__has_message
 msgid "Has Message"
 msgstr "Has Message"
 
 #. module: website_sale_revocation
-msgid "<p>Hello %s,</p><p>we have reviewed and accepted your revocation. The refund will be processed shortly.</p>"
-msgstr "<p>Hello %s,</p><p>we have reviewed and accepted your revocation. The refund will be processed shortly.</p>"
-
-#. module: website_sale_revocation
-msgid "<p>Hello %s,</p><p>we have reviewed your revocation. Unfortunately, we cannot accept it.</p>"
-msgstr "<p>Hello %s,</p><p>we have reviewed your revocation. Unfortunately, we cannot accept it.</p>"
-
-#. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__id
 msgid "ID"
 msgstr "ID"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__activity_exception_icon
 msgid "Icon"
 msgstr "Icon"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icon to indicate an exception activity."
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "If checked, new messages require your attention."
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__message_has_error
+#: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "If checked, some messages have a delivery error."
+
+#. module: website_sale_revocation
+#: model:ir.model.fields.selection,name:website_sale_revocation.selection__website_revocation__state__process
 msgid "In Review"
 msgstr "In Review"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__message_is_follower
 msgid "Is Follower"
 msgstr "Is Follower"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__write_uid
 msgid "Last Updated by"
 msgstr "Last Updated by"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__write_date
 msgid "Last Updated on"
 msgstr "Last Updated on"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__message_has_error
 msgid "Message Delivery error"
 msgstr "Message Delivery error"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__message_ids
 msgid "Messages"
 msgstr "Messages"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "My Activity Deadline"
 
 #. module: website_sale_revocation
+#. odoo-python
+#: code:addons/website_sale_revocation/models/website_revocation.py:0
 msgid "New"
 msgstr "New"
 
 #. module: website_sale_revocation
+#. odoo-python
+#: code:addons/website_sale_revocation/models/website_revocation.py:0
 msgid "New revocation for review"
 msgstr "New revocation for review"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Next Activity Calendar Event"
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "Next Activity Deadline"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__activity_summary
 msgid "Next Activity Summary"
 msgstr "Next Activity Summary"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__activity_type_id
 msgid "Next Activity Type"
 msgstr "Next Activity Type"
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.view_website_revocation_form
 msgid "No reason provided..."
 msgstr "No reason provided..."
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__message_needaction_counter
 msgid "Number of Actions"
 msgstr "Number of Actions"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__message_has_error_counter
 msgid "Number of errors"
 msgstr "Number of errors"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Number of messages requiring action"
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Number of messages with delivery error"
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__sale_order_id
 msgid "Order"
 msgstr "Order"
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
 msgid "Order Number / Contract Number"
 msgstr "Order Number / Contract Number"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__rating_ids
+msgid "Ratings"
+msgstr "Ratings"
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__reason
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
 msgid "Reason (Optional)"
 msgstr "Reason (Optional)"
 
 #. module: website_sale_revocation
+#: model:mail.template,subject:website_sale_revocation.email_template_revocation_receipt
+msgid "Receipt Confirmation: Revocation {{ object.name }}"
+msgstr "Receipt Confirmation: Revocation {{ object.name }}"
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__revocation_date
 msgid "Receipt Date"
 msgstr "Receipt Date"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields.selection,name:website_sale_revocation.selection__website_revocation__state__draft
 msgid "Received"
 msgstr "Received"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__name
 msgid "Reference"
 msgstr "Reference"
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.view_website_revocation_form
 msgid "Reject"
 msgstr "Reject"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields.selection,name:website_sale_revocation.selection__website_revocation__state__rejected
 msgid "Rejected"
 msgstr "Rejected"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__activity_user_id
 msgid "Responsible User"
 msgstr "Responsible User"
 
 #. module: website_sale_revocation
-msgid "Revocation Form"
-msgstr "Revocation Form"
+#: model:mail.template,name:website_sale_revocation.email_template_revocation_accepted
+msgid "Revocation Accepted"
+msgstr "Revocation Accepted"
 
 #. module: website_sale_revocation
-msgid "Revocation Sequence"
-msgstr "Revocation Sequence"
+#: model:mail.template,subject:website_sale_revocation.email_template_revocation_accepted
+msgid "Revocation Accepted: {{ object.name }}"
+msgstr "Revocation Accepted: {{ object.name }}"
 
 #. module: website_sale_revocation
-msgid "Revocation Successful"
-msgstr "Revocation Successful"
+#: model:mail.template,name:website_sale_revocation.email_template_revocation_rejected
+msgid "Revocation Rejected"
+msgstr "Revocation Rejected"
 
 #. module: website_sale_revocation
+#: model:mail.template,subject:website_sale_revocation.email_template_revocation_rejected
+msgid "Revocation Update: {{ object.name }}"
+msgstr "Revocation Update: {{ object.name }}"
+
+#. module: website_sale_revocation
+#. odoo-python
+#: code:addons/website_sale_revocation/models/website_revocation.py:0
+msgid "Revocation accepted and refund process initiated."
+msgstr "Revocation accepted and refund process initiated."
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_success_template
 msgid "Revocation received"
 msgstr "Revocation received"
 
 #. module: website_sale_revocation
+#. odoo-python
+#: code:addons/website_sale_revocation/models/website_revocation.py:0
+msgid "Revocation rejected. Customer notified."
+msgstr "Revocation rejected. Customer notified."
+
+#. module: website_sale_revocation
+#: model:mail.template,name:website_sale_revocation.email_template_revocation_receipt
+msgid "Revocation: Receipt Confirmation"
+msgstr "Revocation: Receipt Confirmation"
+
+#. module: website_sale_revocation
+#: model:ir.actions.act_window,name:website_sale_revocation.action_website_revocation
+#: model:ir.ui.menu,name:website_sale_revocation.menu_website_revocation
 msgid "Revocations"
 msgstr "Revocations"
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
 msgid "Revoke Contract"
 msgstr "Revoke Contract"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr "SMS Delivery error"
 
 #. module: website_sale_revocation
+#: model:mail.template,description:website_sale_revocation.email_template_revocation_receipt
+msgid "Sent automatically to customer upon submitting a revocation"
+msgstr "Sent automatically to customer upon submitting a revocation"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.view_website_revocation_form
 msgid "Set to In Review"
 msgstr "Set to In Review"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__state
 msgid "Status"
 msgstr "Status"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
 msgid "Submit Revocation Bindingly"
 msgstr "Submit Revocation Bindingly"
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_success_template
 msgid "Thank you. We have recorded your revocation under the reference"
 msgstr "Thank you. We have recorded your revocation under the reference"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Type of the exception activity on record."
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
 msgid "Use this form to easily and legally revoke your contract."
 msgstr "Use this form to easily and legally revoke your contract."
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__website_message_ids
 msgid "Website Messages"
 msgstr "Website Messages"
 
 #. module: website_sale_revocation
+#: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__website_message_ids
 msgid "Website communication history"
 msgstr "Website communication history"
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
 msgid "Your Email Address *"
 msgstr "Your Email Address *"
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
 msgid "Your Name *"
 msgstr "Your Name *"
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
 msgid "e.g. SO00123"
 msgstr "e.g. SO00123"

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-01 06:09+0000\n"
-"PO-Revision-Date: 2026-06-01 06:09+0000\n"
+"POT-Creation-Date: 2026-06-02 14:27+0000\n"
+"PO-Revision-Date: 2026-06-02 14:27+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,76 @@ msgid "<b>ATTENTION:</b> A revocation request (%s) has been submitted."
 msgstr "<b>ACHTUNG:</b> Ein Widerrufsantrag (%s) wurde eingereicht."
 
 #. module: website_sale_revocation
+#: model:mail.template,body_html:website_sale_revocation.email_template_revocation_accepted
+msgid ""
+"<div style=\"margin: 0px; padding: 0px; font-family: 'Segoe UI', Arial, sans-serif;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px; color: #243746;\">\n"
+"                    Hello <t t-out=\"object.customer_name or 'Customer'\"/>,<br/><br/>\n"
+"                    We have reviewed and accepted your revocation request for reference <strong><t t-out=\"object.name\"/></strong>.<br/>\n"
+"                    The refund process has been initiated and will be completed shortly.<br/><br/>                    \n"
+"                </p>\n"
+"                \n"
+"                <t t-if=\"user.signature\">\n"
+"                    <br/>\n"
+"                    <div style=\"font-size: 13px; color: #243746;\">\n"
+"                        <t t-out=\"user.signature or ''\"/>\n"
+"                    </div>\n"
+"                </t>\n"
+"            </div>\n"
+"        "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px; font-family: 'Segoe UI', Arial, sans-serif;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px; color: #243746;\">\n"
+"                    Guten Tag <t t-out=\"object.customer_name or 'Kunde'\"/>,<br/><br/>\n"
+"                    wir haben Ihren Widerruf mit der Referenznummer <strong><t t-out=\"object.name\"/></strong> geprüft und akzeptiert.<br/>\n"
+"                    Die Erstattung wurde in die Wege geleitet und wird in Kürze abgeschlossen.<br/><br/>\n"
+"                </p>\n"
+"                \n"
+"                <t t-if=\"user.signature\">\n"
+"                    <br/>\n"
+"                    <div style=\"font-size: 13px; color: #243746;\">\n"
+"                        <t t-out=\"user.signature or ''\"/>\n"
+"                    </div>\n"
+"                </t>\n"
+"            </div>\n"
+"        "
+
+#. module: website_sale_revocation
+#: model:mail.template,body_html:website_sale_revocation.email_template_revocation_rejected
+msgid ""
+"<div style=\"margin: 0px; padding: 0px; font-family: 'Segoe UI', Arial, sans-serif;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px; color: #243746;\">\n"
+"                    Hello <t t-out=\"object.customer_name or 'Customer'\"/>,<br/><br/>\n"
+"                    We have reviewed your revocation request for reference <strong><t t-out=\"object.name\"/></strong>.<br/>\n"
+"                    Unfortunately, after careful review, we cannot accept your request at this time.<br/><br/>                    \n"
+"                </p>\n"
+"                \n"
+"                <t t-if=\"user.signature\">\n"
+"                    <br/>\n"
+"                    <div style=\"font-size: 13px; color: #243746;\">\n"
+"                        <t t-out=\"user.signature or ''\"/>\n"
+"                    </div>\n"
+"                </t>                \n"
+"            </div>\n"
+"        "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px; font-family: 'Segoe UI', Arial, sans-serif;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px; color: #243746;\">\n"
+"                    Guten Tag <t t-out=\"object.customer_name or 'Kunde'\"/>,<br/><br/>\n"
+"                    wir haben Ihren Widerruf mit der Referenznummer <strong><t t-out=\"object.name\"/></strong> geprüft.<br/>\n"
+"                    Leider können wir Ihrem Antrag nach sorgfältiger Prüfung nicht stattgeben. Unser Kundenservice wird sich bezüglich der Details in Kürze bei Ihnen melden.<br/><br/>\n"
+"                </p>\n"
+"                \n"
+"                <t t-if=\"user.signature\">\n"
+"                    <br/>\n"
+"                    <div style=\"font-size: 13px; color: #243746;\">\n"
+"                        <t t-out=\"user.signature or ''\"/>\n"
+"                    </div>\n"
+"                </t>\n"
+"            </div>\n"
+"        "
+
+#. module: website_sale_revocation
 #: model:mail.template,body_html:website_sale_revocation.email_template_revocation_receipt
 msgid ""
 "<div style=\"margin: 0px; padding: 0px;\">\n"
@@ -30,42 +100,35 @@ msgid ""
 "                        We hereby confirm the receipt of your revocation request.<br/>\n"
 "                        Your reference number is: <strong><t t-out=\"object.name\"/></strong><br/><br/>\n"
 "                        We will review your request as quickly as possible and get back to you shortly.<br/><br/>\n"
-"                        Best regards,<br/>\n"
-"                        Your Customer Service Team\n"
 "                    </p>\n"
+"                    \n"
+"                    <t t-set=\"assigned_user\" t-value=\"object.env.company.revocation_notification_user_id or object.env.ref('base.user_admin')\"/>\n"
+"                    <t t-if=\"assigned_user and assigned_user.signature\">\n"
+"                    <br/>\n"
+"                    <div style=\"font-size: 13px; color: #243746;\">\n"
+"                        <t t-out=\"assigned_user.signature\"/>\n"
+"                    </div>\n"
+"                    </t>\n"
 "                </div>\n"
-"            "
+"        "
 msgstr ""
-"<div style=\"margin: 0px; padding: 0px;\">\n"
-"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"<div style=\"margin: 0px; padding: 0px; font-family: 'Segoe UI', Arial, sans-serif;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px; color: #243746;\">\n"
 "        Guten Tag <t t-out=\"object.customer_name or 'Kunde'\"/>,<br/><br/>\n"
 "        wir bestätigen hiermit den Eingang Ihres Widerrufs.<br/>\n"
 "        Ihre Referenznummer lautet: <strong><t t-out=\"object.name\"/></strong><br/><br/>\n"
 "        Wir werden Ihr Anliegen schnellstmöglich prüfen und uns in Kürze bei Ihnen melden.<br/><br/>\n"
-"        Mit freundlichen Grüßen<br/>\n"
-"        Ihr Kundenservice-Team\n"
 "    </p>\n"
-"</div>"
-
-#. module: website_sale_revocation
-#. odoo-python
-#: code:addons/website_sale_revocation/models/website_revocation.py:0
-msgid ""
-"<p>Hello %s,</p><p>we have reviewed and accepted your revocation. The refund"
-" will be processed shortly.</p>"
-msgstr ""
-"<p>Guten Tag %s,</p><p>wir haben Ihren Widerruf geprüft und akzeptiert. Die "
-"Erstattung wird in Kürze veranlasst.</p>"
-
-#. module: website_sale_revocation
-#. odoo-python
-#: code:addons/website_sale_revocation/models/website_revocation.py:0
-msgid ""
-"<p>Hello %s,</p><p>we have reviewed your revocation. Unfortunately, we "
-"cannot accept it.</p>"
-msgstr ""
-"<p>Guten Tag %s,</p><p>wir haben Ihren Widerruf geprüft. Leider können wir "
-"diesen nicht akzeptieren.</p>"
+"    \n"
+"    <t t-set=\"assigned_user\" t-value=\"object.env.company.revocation_notification_user_id or object.env.ref('base.user_admin')\"/>\n"
+"    <t t-if=\"assigned_user and assigned_user.signature\">\n"
+"    <br/>\n"
+"    <div style=\"font-size: 13px; color: #243746;\">\n"
+"       <t t-out=\"assigned_user.signature\"/>\n"
+"    </div>\n"
+"    </t>\n"
+"</div>\n"
+"        "
 
 #. module: website_sale_revocation
 #. odoo-python
@@ -143,6 +206,16 @@ msgid ""
 msgstr ""
 "Mit Klick auf den unteren Button lösen Sie den Widerrufsprozess verbindlich "
 "aus. Sie erhalten unverzüglich eine Eingangsbestätigung."
+
+#. module: website_sale_revocation
+#: model:ir.model,name:website_sale_revocation.model_res_company
+msgid "Companies"
+msgstr "Unternehmen"
+
+#. module: website_sale_revocation
+#: model:ir.model,name:website_sale_revocation.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfigurationseinstellungen"
 
 #. module: website_sale_revocation
 #: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__create_uid
@@ -224,14 +297,19 @@ msgid "Has Message"
 msgstr "Hat Nachricht"
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
+msgid "I have read and accept the"
+msgstr "Ich habe die"
+
+#. module: website_sale_revocation
 #: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: website_sale_revocation
 #: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__activity_exception_icon
 msgid "Icon"
-msgstr ""
+msgstr "Icon"
 
 #. module: website_sale_revocation
 #: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__activity_exception_icon
@@ -269,6 +347,11 @@ msgstr "Zuletzt aktualisiert von"
 #: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__write_date
 msgid "Last Updated on"
 msgstr "Zuletzt aktualisiert am"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.res_config_settings_view_form_inherit_revocation
+msgid "Link to your privacy policy for the frontend checkbox."
+msgstr "Link zu Ihrer Datenschutzerklärung für das Kontrollkästchen im Frontend."
 
 #. module: website_sale_revocation
 #: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__message_has_error
@@ -323,6 +406,11 @@ msgid "No reason provided..."
 msgstr "Keine Begründung angegeben..."
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.res_config_settings_view_form_inherit_revocation
+msgid "Notification User"
+msgstr "Benutzerbenachrichtigung"
+
+#. module: website_sale_revocation
 #: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__message_needaction_counter
 msgid "Number of Actions"
 msgstr "Anzahl der Aktionen"
@@ -351,6 +439,18 @@ msgstr "Bestellung"
 #: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
 msgid "Order Number / Contract Number"
 msgstr "Bestellnummer / Vertragsnummer"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
+msgid "Privacy Policy"
+msgstr "Datenschutzerklärung"
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_res_company__revocation_privacy_policy_url
+#: model:ir.model.fields,field_description:website_sale_revocation.field_res_config_settings__revocation_privacy_policy_url
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.res_config_settings_view_form_inherit_revocation
+msgid "Privacy Policy URL"
+msgstr "Datenschutzerklärung URL"
 
 #. module: website_sale_revocation
 #: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__rating_ids
@@ -399,16 +499,41 @@ msgid "Responsible User"
 msgstr "Verantwortlicher Benutzer"
 
 #. module: website_sale_revocation
-#. odoo-python
-#: code:addons/website_sale_revocation/models/website_revocation.py:0
-msgid "Revocation Accepted: %s"
-msgstr ""
+#: model:mail.template,name:website_sale_revocation.email_template_revocation_accepted
+msgid "Revocation Accepted"
+msgstr "Widerruf Akzeptiert"
+
+#. module: website_sale_revocation
+#: model:mail.template,subject:website_sale_revocation.email_template_revocation_accepted
+msgid "Revocation Accepted: {{ object.name }}"
+msgstr "Widerruf Akzeptiert: {{ object.name }}"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.res_config_settings_view_form_inherit_revocation
+msgid "Revocation Management"
+msgstr "Widerrufsmanagement"
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_res_company__revocation_notification_user_id
+#: model:ir.model.fields,field_description:website_sale_revocation.field_res_config_settings__revocation_notification_user_id
+msgid "Revocation Notification User"
+msgstr "Benutzer für Widerrufsmitteilungen"
+
+#. module: website_sale_revocation
+#: model:mail.template,name:website_sale_revocation.email_template_revocation_rejected
+msgid "Revocation Rejected"
+msgstr "Widerruf Abgelehnt"
+
+#. module: website_sale_revocation
+#: model:mail.template,subject:website_sale_revocation.email_template_revocation_rejected
+msgid "Revocation Update: {{ object.name }}"
+msgstr "Widerruf Update: {{ object.name }}"
 
 #. module: website_sale_revocation
 #. odoo-python
 #: code:addons/website_sale_revocation/models/website_revocation.py:0
-msgid "Revocation Rejected: %s"
-msgstr ""
+msgid "Revocation accepted and refund process initiated."
+msgstr "Widerruf akzeptiert und Erstattungsprozess eingeleitet."
 
 #. module: website_sale_revocation
 #: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_success_template
@@ -416,9 +541,15 @@ msgid "Revocation received"
 msgstr "Widerruf eingegangen"
 
 #. module: website_sale_revocation
+#. odoo-python
+#: code:addons/website_sale_revocation/models/website_revocation.py:0
+msgid "Revocation rejected. Customer notified."
+msgstr "Widerruf abgelehnt. Kunde benachrichtigt."
+
+#. module: website_sale_revocation
 #: model:mail.template,name:website_sale_revocation.email_template_revocation_receipt
 msgid "Revocation: Receipt Confirmation"
-msgstr ""
+msgstr "Widerruf: Eingangsbestätigung"
 
 #. module: website_sale_revocation
 #: model:ir.actions.act_window,name:website_sale_revocation.action_website_revocation
@@ -439,7 +570,7 @@ msgstr "SMS Zustellungsfehler"
 #. module: website_sale_revocation
 #: model:mail.template,description:website_sale_revocation.email_template_revocation_receipt
 msgid "Sent automatically to customer upon submitting a revocation"
-msgstr ""
+msgstr "Wird nach Einreichen eines Widerrufs automatisch an den Kunden gesendet"
 
 #. module: website_sale_revocation
 #: model_terms:ir.ui.view,arch_db:website_sale_revocation.view_website_revocation_form
@@ -449,7 +580,7 @@ msgstr "In Prüfung setzen"
 #. module: website_sale_revocation
 #: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__state
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #. module: website_sale_revocation
 #: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__activity_state
@@ -487,6 +618,11 @@ msgstr ""
 "zu widerrufen."
 
 #. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.res_config_settings_view_form_inherit_revocation
+msgid "User who receives the task when a new revocation is submitted."
+msgstr "Der Benutzer, der die Aufgabe erhält, wenn ein neuer Widerruf eingereicht wird."
+
+#. module: website_sale_revocation
 #: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__website_message_ids
 msgid "Website Messages"
 msgstr "Website Nachrichten"
@@ -505,6 +641,11 @@ msgstr "Ihre E-Mail-Adresse *"
 #: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
 msgid "Your Name *"
 msgstr "Ihr Name *"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.res_config_settings_view_form_inherit_revocation
+msgid "e.g. /privacy"
+msgstr "z. B. /privacy"
 
 #. module: website_sale_revocation
 #: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template

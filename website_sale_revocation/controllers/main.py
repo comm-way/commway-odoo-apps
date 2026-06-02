@@ -14,6 +14,7 @@ class WebsiteRevocationController(http.Controller):
                 'customer_name': partner.name,
                 'customer_email': partner.email,
             })
+        values['privacy_url'] = request.env.company.revocation_privacy_policy_url or '/privacy'
         return request.render("website_sale_revocation.revocation_form_template", values)
 
     @http.route(['/shop/revocation/submit'], type='http', auth="public", methods=['POST'], website=True, csrf=True)
