@@ -1,6 +1,6 @@
 {
     'name': 'Website Order Withdrawal',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'summary': 'Adds a legally compliant revocation/withdrawal button and backend management to Odoo Sales.',
     'author': 'COMM-WAY GmbH',
     'website': 'https://www.comm-way.com',
