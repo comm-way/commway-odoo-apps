@@ -10,7 +10,15 @@
                         
                         <form action="/shop/revocation/submit" method="post" class="js_website_submit_form" id="revocation_form">
                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                            
+
+                            <div t-if="error" class="alert alert-danger" role="alert"><t t-out="error"/></div>
+
+                            <!-- Honeypot: hidden from humans, bots tend to fill it -->
+                            <div aria-hidden="true" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">
+                                <label t-att-for="honeypot_field">Leave this field empty</label>
+                                <input type="text" t-att-name="honeypot_field" t-att-id="honeypot_field" tabindex="-1" autocomplete="off" value=""/>
+                            </div>
+
                             <div class="form-group mb-3">
                                 <label for="customer_name" class="form-label">Your Name *</label>
                                 <input type="text" name="customer_name" id="customer_name" class="form-control" t-att-value="customer_name" required="1"/>
@@ -23,12 +31,12 @@
                             
                             <div class="form-group mb-3">
                                 <label for="order_ref" class="form-label">Order Number / Contract Number</label>
-                                <input type="text" name="order_ref" id="order_ref" class="form-control" placeholder="e.g. SO00123"/>
+                                <input type="text" name="order_ref" id="order_ref" class="form-control" placeholder="e.g. SO00123" t-att-value="order_ref"/>
                             </div>
                             
                             <div class="form-group mb-4">
                                 <label for="reason" class="form-label">Reason (Optional)</label>
-                                <textarea name="reason" id="reason" class="form-control" rows="4"></textarea>
+                                <textarea name="reason" id="reason" class="form-control" rows="4"><t t-out="reason"/></textarea>
                             </div>
 
                             <div class="mb-3 form-check">
@@ -38,6 +46,18 @@
                                 </label>
                             </div>
                             
+                            <!-- Cloudflare Turnstile: the token is posted as 'turnstile_captcha',
+                                 which Odoo's ir.http._verify_request_recaptcha_token checks -->
+                            <t t-if="turnstile_site_key">
+                                <div class="cf-turnstile mb-3"
+                                     t-att-data-sitekey="turnstile_site_key"
+                                     t-att-data-action="captcha_action"
+                                     data-response-field-name="turnstile_captcha"
+                                     data-callback="revocationTurnstileDone"
+                                     data-expired-callback="revocationTurnstileExpired"/>
+                                <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async="async" defer="defer"></script>
+                            </t>
+
                             <div class="alert alert-info small">By clicking the button below, you bindingly initiate the revocation process. You will immediately receive a receipt confirmation.</div>
                             
                             <button type="submit" class="btn btn-primary btn-lg w-100" id="submit_revocation_btn" disabled="disabled">
@@ -49,15 +69,28 @@
             </div>
 
             <script type="text/javascript">
+                var revocationCheckValidity = function() {};
+                // Called by Turnstile once the challenge is solved / when the token expires
+                window.revocationTurnstileDone = function() { revocationCheckValidity(); };
+                window.revocationTurnstileExpired = function() { revocationCheckValidity(); };
+
                 document.addEventListener("DOMContentLoaded", function() {
                     var form = document.getElementById('revocation_form');
                     var btn = document.getElementById('submit_revocation_btn');
 
                     if (form &amp;&amp; btn) {
                         var checkFormValidity = function() {
-                            // If form is valid, disabled is false. If invalid, disabled is true.
-                            btn.disabled = !form.checkValidity();
+                            // Button only active when the form is valid and, if Turnstile
+                            // is shown, the challenge has produced a token.
+                            var captchaOk = true;
+                            if (form.querySelector('.cf-turnstile')) {
+                                var token = form.querySelector('input[name="turnstile_captcha"]');
+                                captchaOk = !!(token &amp;&amp; token.value);
+                            }
+                            btn.disabled = !(form.checkValidity() &amp;&amp; captchaOk);
                         };
+                        revocationCheckValidity = checkFormValidity;
+                        checkFormValidity();
 
                         // Check on every keystroke and checkbox click
                         form.addEventListener('input', checkFormValidity);
@@ -73,7 +106,7 @@
             <div class="container py-5 text-center">
                 <div class="text-success display-4 mb-4"><i class="fa fa-check-circle"/></div>
                 <h2>Revocation received</h2>
-                <p class="lead mt-3">Thank you. We have recorded your revocation under the reference <strong><t t-out="revocation.name"/></strong>.</p>
+                <p t-if="revocation" class="lead mt-3">Thank you. We have recorded your revocation under the reference <strong><t t-out="revocation.name"/></strong>.</p>
                 <p class="text-muted">An automated receipt confirmation with a timestamp has just been sent to your email address.</p>
                 <a href="/shop" class="btn btn-outline-primary mt-4">Back to Shop</a>
             </div>
