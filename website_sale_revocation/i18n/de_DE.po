@@ -651,3 +651,8 @@ msgstr "z. B. /privacy"
 #: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
 msgid "e.g. SO00123"
 msgstr "z.B. SO00123"
+#. module: website_sale_revocation
+#. odoo-python
+#: code:addons/website_sale_revocation/controllers/main.py:0
+msgid "The security check failed. Please try again."
+msgstr "Die Sicherheitsprüfung ist fehlgeschlagen. Bitte versuchen Sie es erneut."
