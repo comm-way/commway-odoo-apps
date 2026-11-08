@@ -18,7 +18,8 @@
                         </p>
                         <div>
                             <span style="border: 1px solid #ffffff; color: #ffffff; padding: 5px 10px; font-size: 13px; border-radius: 4px; margin-right: 10px; font-weight: 500;">✓ Native Multi-Website</span>
-                            <span style="border: 1px solid #ffffff; color: #ffffff; padding: 5px 10px; font-size: 13px; border-radius: 4px; font-weight: 500;">✓ Guest Checkout Support</span>
+                            <span style="border: 1px solid #ffffff; color: #ffffff; padding: 5px 10px; font-size: 13px; border-radius: 4px; margin-right: 10px; font-weight: 500;">✓ Guest Checkout Support</span>
+                            <span style="border: 1px solid #ffffff; color: #ffffff; padding: 5px 10px; font-size: 13px; border-radius: 4px; font-weight: 500;">✓ Bot &amp; Spam Protection</span>
                         </div>
                     </td>
                     <td style="width: 45%; vertical-align: middle; text-align: center;">
@@ -65,6 +66,20 @@
             <img src="img_1_revocationButton.png" style="width: 100%; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" alt="Revocation Frontend Form">
         </div>
 
+        <div style="background-color: #ffffff; padding: 50px 100px;">
+            <h3 style="font-size: 22px; font-weight: bold; color: #28594A; margin: 0 0 15px 0;">Built-in Bot &amp; Spam Protection</h3>
+            <p style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 15px 0;">
+                Public forms attract bots. Without protection, automated scripts can flood your backend with fake revocations and abuse the automatic receipt email to send messages to arbitrary addresses through your mail server, which can damage your domain's sender reputation. The withdrawal form is protected on two levels:
+            </p>
+            <ul style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 15px 0; padding-left: 20px;">
+                <li><strong>Cloudflare Turnstile / Google reCAPTCHA:</strong> The form uses Odoo's native captcha verification. If you have Turnstile (or reCAPTCHA) configured for your website, the challenge is shown automatically and every submission is verified server-side before a record is created or an email is sent.</li>
+                <li><strong>Invisible honeypot:</strong> A hidden trap field that only bots fill in. Such submissions are silently discarded, with no record and no email, and this works even without a captcha configured.</li>
+            </ul>
+            <p style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0;">
+                💡 <strong>Recommended setup:</strong> Enable <strong>Cloudflare Turnstile</strong> under <em>Website › Configuration › Settings</em> and enter your site and secret key. No further configuration of this module is required.
+            </p>
+        </div>
+
         <div style="background-color: #f1f7f5; padding: 50px 100px;">
             <h3 style="font-size: 22px; font-weight: bold; color: #28594A; margin: 0 0 15px 0;">Immediate Confirmation & Reference Tracking</h3>
             <p style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 25px 0;">
@@ -106,6 +121,21 @@
                 💡 <strong>Smart Collaboration:</strong> When you assign the revocation request to an internal user or link it to a specific customer record, Odoo automatically adds them as a <strong>Follower</strong> to the document thread. This ensures that any subsequent updates, comments, or customer replies in the chatter are seamlessly routed to their personal inbox.
             </p>
             <img src="img_6_revocationDetail.png" style="width: 100%; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" alt="Revocation Detail View and Actions">
+        </div>
+
+        <div style="background-color: #fff8e6; border-left: 5px solid #e0a800; padding: 35px 100px;">
+            <h3 style="font-size: 20px; font-weight: bold; color: #243746; margin: 0 0 15px 0;">Release Notes</h3>
+            <p style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 8px 0;">
+                <strong>Version 1.1.0 (Security update, update recommended)</strong>
+            </p>
+            <ul style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 15px 0; padding-left: 20px;">
+                <li>New: Server-side Cloudflare Turnstile / Google reCAPTCHA verification for the withdrawal form.</li>
+                <li>New: Invisible honeypot field that silently discards bot submissions.</li>
+                <li>Improved: Form keeps entered values and shows a clear message if the security check fails.</li>
+            </ul>
+            <p style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0;">
+                <strong>Upgrading from 1.0.0:</strong> Download the new version, replace the module in your addons path and upgrade it under <em>Apps</em>. Then enable Cloudflare Turnstile in your website settings for full protection. We also recommend reviewing existing revocation records for automated spam entries.
+            </p>
         </div>
 
         <div style="background-color: #243746; padding: 45px 30px; color: #ffffff;">
