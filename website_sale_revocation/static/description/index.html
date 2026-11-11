@@ -11,10 +11,10 @@
             <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                     <td style="width: 55%; vertical-align: middle; padding-right: 30px;">
-                        <span style="background-color: #ffffff; color: #28594A; padding: 6px 12px; font-size: 12px; font-weight: bold; border-radius: 4px; text-transform: uppercase; display: inline-block; margin-bottom: 15px;">EU Compliance Pack</span>
+                        <span style="background-color: #ffffff; color: #28594A; padding: 6px 12px; font-size: 12px; font-weight: bold; border-radius: 4px; text-transform: uppercase; display: inline-block; margin-bottom: 15px;">EU Directive 2023/2673</span>
                         <h1 style="font-size: 38px; font-weight: bold; margin: 0 0 15px 0; color: #ffffff; line-height: 1.2;">Website Order Withdrawal</h1>
                         <p style="font-size: 16px; line-height: 1.5; color: #e2f0ec; margin: 0 0 25px 0;">
-                            Protect your online business from heavy legal compliance fines and structural claims. Give customers a fully automated 1-click legal solution to submit official contract cancellations or order withdrawals directly in your Odoo storefront path.
+                            Helps you implement the online withdrawal function (&quot;withdrawal button&quot;) required by Art. 11a of EU Directive 2023/2673, in Austria § 13a FAGG. Customers open the form via &quot;Withdraw from contract&quot;, fill in their details and send their declaration with &quot;Confirm withdrawal&quot;, directly in your Odoo website.
                         </p>
                         <div>
                             <span style="border: 1px solid #ffffff; color: #ffffff; padding: 5px 10px; font-size: 13px; border-radius: 4px; margin-right: 10px; font-weight: 500;">✓ Native Multi-Website</span>
@@ -35,8 +35,8 @@
                 <tr>
                     <td style="width: 33.33%; padding: 0 15px; vertical-align: top;">
                         <div style="background-color: #28594A; padding: 25px 20px; border-radius: 6px; min-height: 150px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                            <h4 style="font-weight: bold; color: #ffffff; font-size: 16px; margin: 0 0 10px 0;">100% Legal Safeguards</h4>
-                            <p style="font-size: 13px; line-height: 1.5; color: #e2f0ec; margin: 0;">Fully guarantees absolute adherence to strict European Consumer Rights Directives governing online trade cancellations.</p>
+                            <h4 style="font-weight: bold; color: #ffffff; font-size: 16px; margin: 0 0 10px 0;">Built for Art. 11a / § 13a FAGG</h4>
+                            <p style="font-size: 13px; line-height: 1.5; color: #e2f0ec; margin: 0;">Covers the required form fields (name, contract identification, e-mail), partial withdrawal, a &quot;Confirm withdrawal&quot; button and a receipt confirmation with date and time.</p>
                         </div>
                     </td>
                     <td style="width: 33.33%; padding: 0 15px; vertical-align: top;">
@@ -61,7 +61,7 @@
                 Integrates a custom legal portal subpath (<span style="background-color: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; color: #243746;">/shop/revocation</span>) accessible anywhere. 
             </p>
             <p style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 25px 0;">
-                The form features a built-in privacy policy checkbox with a dynamic "Submit" button that automatically unlocks only when all required legal fields are filled out, preventing incomplete submissions. Registered customer accounts are automatically paired, while guest purchases can safely log a direct request.
+                Customers enter their name, e-mail address and order or contract number. An optional field lets them withdraw only <strong>part of an order</strong> (e.g. by item number); if it is left empty, the withdrawal covers the entire order. The declaration is sent with a clearly labelled <strong>&quot;Confirm withdrawal&quot;</strong> button. Registered customers are recognised automatically, while guests can submit a withdrawal without logging in.
             </p>
             <img src="img_1_revocationButton.png" style="width: 100%; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" alt="Revocation Frontend Form">
         </div>
@@ -83,7 +83,7 @@
         <div style="background-color: #f1f7f5; padding: 50px 100px;">
             <h3 style="font-size: 22px; font-weight: bold; color: #28594A; margin: 0 0 15px 0;">Immediate Confirmation & Reference Tracking</h3>
             <p style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 25px 0;">
-                Upon submission, the customer receives an instant on-screen confirmation featuring a unique, system-generated tracking reference. Simultaneously, a timestamped automated receipt is dispatched to their email, fulfilling EU documentation requirements.
+                Upon submission, the customer receives an instant on-screen confirmation with a unique reference number. At the same time, a receipt confirmation is sent by e-mail. It contains the content of the withdrawal declaration (name, e-mail, order, withdrawn items, reason) as well as the date and time of receipt.
             </p>
             <img src="img_2_revocationReceived.png" style="width: 100%; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" alt="Revocation Success Confirmation">
         </div>
@@ -91,7 +91,7 @@
         <div style="background-color: #ffffff; padding: 50px 100px;">
             <h3 style="font-size: 22px; font-weight: bold; color: #28594A; margin: 0 0 15px 0;">Native Odoo Settings Integration</h3>
             <p style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 25px 0;">
-                Configure the entire module directly from the core Sales app settings. Assign a dedicated <strong>Notification User</strong> to ensure new revocation requests are automatically routed to the correct agent's dashboard. You can also define an explicit <strong>Privacy Policy URL</strong> to dynamically enforce GDPR/DSGVO compliance on the frontend form.
+                Configure the entire module directly from the core Sales app settings. Assign a dedicated <strong>Notification User</strong> to ensure new revocation requests are automatically routed to the correct agent's dashboard. You can also set the <strong>Privacy Policy URL</strong> and choose how the privacy policy is shown on the form: as a <strong>notice with link</strong> (default, no extra step for the customer) or as a <strong>mandatory checkbox</strong>.
             </p>
             <img src="img_3_settings.png" style="width: 100%; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" alt="Revocation Sales Settings">
         </div>
@@ -107,7 +107,7 @@
         <div style="background-color: #ffffff; padding: 50px 100px;">
             <h3 style="font-size: 22px; font-weight: bold; color: #28594A; margin: 0 0 15px 0;">Centralized Management & Processing Pipeline</h3>
             <p style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 25px 0;">
-                Keep your customer service team efficient with a dedicated list view directly within the Sales app. All incoming revocations are neatly organized, allowing you to filter by status (Received, In Review, Accepted, Rejected), search by reference, and process requests in bulk. The clear overview ensures no legal deadline is ever missed.
+                Keep your customer service team efficient with a dedicated list view directly within the Sales app. All incoming revocations are neatly organized, allowing you to filter by status (Received, In Review, Accepted, Rejected), search by reference, and process requests in bulk. The clear overview helps your team keep track of open requests and deadlines.
             </p>
             <img src="img_5_overview.png" style="width: 100%; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" alt="Revocations List View Overview">
         </div>
@@ -126,7 +126,21 @@
         <div style="background-color: #fff8e6; border-left: 5px solid #e0a800; padding: 35px 100px;">
             <h3 style="font-size: 20px; font-weight: bold; color: #243746; margin: 0 0 15px 0;">Release Notes</h3>
             <p style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 8px 0;">
-                <strong>Version 1.1.0 (Security update, update recommended)</strong>
+                <strong>Version 1.2.0 (Withdrawal button according to Art. 11a / § 13a FAGG, update recommended)</strong>
+            </p>
+            <ul style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 15px 0; padding-left: 20px;">
+                <li>Changed: The submit button is now labelled &quot;Confirm withdrawal&quot; / &quot;Widerruf bestätigen&quot;, as worded in the directive.</li>
+                <li>New: Partial withdrawal. Customers can specify which items they want to withdraw (empty = entire order). The items are shown in the backend record and in the receipt confirmation.</li>
+                <li>Improved: The receipt confirmation e-mail now contains the full content of the declaration (name, e-mail, order, items, reason) and the date and time of receipt, in English and German.</li>
+                <li>Improved: The order number is stored exactly as entered; unknown order numbers are highlighted in the backend.</li>
+                <li>Changed: Neutral introduction text on the form.</li>
+                <li>New: Setting &quot;Privacy Policy Display&quot;. By default, the form now shows a privacy notice with a link instead of a mandatory checkbox, so that customers do not face an extra step. The checkbox can be re-enabled in the Sales settings.</li>
+            </ul>
+            <p style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 20px 0;">
+                <strong>Note when upgrading:</strong> The receipt confirmation e-mail template is updated automatically. Any manual changes you made to this template will be replaced.
+            </p>
+            <p style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 8px 0;">
+                <strong>Version 1.1.0 (Security update)</strong>
             </p>
             <ul style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0 0 15px 0; padding-left: 20px;">
                 <li>New: Server-side Cloudflare Turnstile / Google reCAPTCHA verification for the withdrawal form.</li>
@@ -134,7 +148,7 @@
                 <li>Improved: Form keeps entered values and shows a clear message if the security check fails.</li>
             </ul>
             <p style="font-size: 14px; line-height: 1.6; color: #4e6172; margin: 0;">
-                <strong>Upgrading from 1.0.0:</strong> Download the new version, replace the module in your addons path and upgrade it under <em>Apps</em>. Then enable Cloudflare Turnstile in your website settings for full protection. We also recommend reviewing existing revocation records for automated spam entries.
+                <strong>Upgrading from an older version:</strong> Download the new version, replace the module in your addons path and upgrade it under <em>Apps</em>. Then enable Cloudflare Turnstile in your website settings for full protection. We also recommend reviewing existing revocation records for automated spam entries.
             </p>
         </div>
 
@@ -158,7 +172,7 @@
 
         <div style="background-color: #28594A; padding: 35px 30px; color: #ffffff; text-align: center;">
             <p style="font-size: 15px; font-weight: 500; max-width: 800px; margin: 0 auto; line-height: 1.6; color: #ffffff;">
-                💡 <strong>Commercial Tip:</strong> European trade associations frequently penalize webstores lacking an explict automated withdrawal path. Installing this extension provides complete operational security and shields you from legal vulnerabilities.
+                ⚖️ <strong>Please note:</strong> This module provides the technical withdrawal function. It does not replace legal advice. As a shop operator, you still need to update your withdrawal policy and terms and conditions yourself (e.g. with a reference to the online withdrawal function), keep the model withdrawal form available and place the &quot;Withdraw from contract&quot; link prominently in your shop.
             </p>
         </div>
 

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
+from odoo.tools import format_datetime
 from markupsafe import Markup
 
 class WebsiteRevocation(models.Model):
@@ -16,11 +17,20 @@ class WebsiteRevocation(models.Model):
     
     # Link to Odoo structures
     sale_order_id = fields.Many2one('sale.order', string='Order', tracking=True)
+    order_reference = fields.Char(string='Order Reference (as entered)', readonly=True,
+                                  help="Order or contract number exactly as entered by the customer.")
     partner_id = fields.Many2one('res.partner', string='Customer', tracking=True)
-    
+
     # Cancellation Details
     revocation_date = fields.Datetime(string='Receipt Date', default=fields.Datetime.now, readonly=True, tracking=True)
+    revocation_items = fields.Text(string='Items to Withdraw',
+                                   help="Items the customer wants to withdraw from. Empty means the entire order.")
     reason = fields.Text(string='Reason (Optional)')
+
+    # Content of the legally required receipt confirmation (§ 13a FAGG / Art. 11a Directive 2023/2673).
+    # Rendered from a QWeb view so the text is translated like any other view term.
+    receipt_mail_content = fields.Html(string='Receipt Confirmation Content', compute='_compute_receipt_mail_content',
+                                       sanitize=False)
     
     # Status Pipeline
     state = fields.Selection([
@@ -64,6 +74,25 @@ class WebsiteRevocation(models.Model):
             )
             
         return records
+
+    def _get_receipt_timezone(self):
+        self.ensure_one()
+        return self.env.company.partner_id.tz or self.env.user.tz or 'UTC'
+
+    @api.depends_context('lang')
+    @api.depends('name', 'customer_name', 'customer_email', 'sale_order_id', 'order_reference',
+                 'revocation_items', 'reason', 'revocation_date')
+    def _compute_receipt_mail_content(self):
+        for record in self:
+            tz = record._get_receipt_timezone()
+            received_at = format_datetime(record.env, record.revocation_date, tz=tz, dt_format='medium') if record.revocation_date else ''
+            record.receipt_mail_content = record.env['ir.qweb']._render(
+                'website_sale_revocation.revocation_receipt_mail_content', {
+                    'record': record,
+                    'order_display': record.sale_order_id.name or record.order_reference or '',
+                    'received_at': received_at,
+                    'timezone': tz,
+                })
 
     def _send_receipt_confirmation_mail(self):
         """ Sends the legally required, immediate receipt confirmation """

@@ -11,13 +11,10 @@
             <field name="reply_to">{{ object.env.company.catchall_formatted or object.env.company.email_formatted }}</field>
             <field name="body_html" type="html">            
                 <div style="margin: 0px; padding: 0px; font-family: 'Segoe UI', Arial, sans-serif;">
-                    <p style="margin: 0px; padding: 0px; font-size: 13px; color: #243746;">
-                        Hello <t t-out="object.customer_name or 'Customer'"></t>,<br/><br/>
-                        We hereby confirm the receipt of your revocation request.<br/>
-                        Your reference number is: <strong><t t-out="object.name"></t></strong><br/><br/>
-                        We will review your request as quickly as possible and get back to you shortly.<br/><br/>                        
-                    </p>
-                    
+                    <!-- Legally required content (declaration + date/time of receipt) is rendered from the
+                         translatable QWeb view website_sale_revocation.revocation_receipt_mail_content -->
+                    <t t-out="object.receipt_mail_content"/>
+
                     <t t-set="assigned_user" t-value="object.env.company.revocation_notification_user_id or object.env.ref('base.user_admin')"/>
                     
                     <t t-if="assigned_user and assigned_user.signature">
