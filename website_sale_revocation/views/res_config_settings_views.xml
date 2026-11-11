@@ -12,8 +12,11 @@
                     <setting string="Notification User" help="User who receives the task when a new revocation is submitted.">
                         <field name="revocation_notification_user_id"/>
                     </setting>
-                    <setting string="Privacy Policy URL" help="Link to your privacy policy for the frontend checkbox.">
+                    <setting string="Privacy Policy URL" help="Link to your privacy policy shown on the withdrawal form.">
                         <field name="revocation_privacy_policy_url" placeholder="e.g. /privacy"/>
+                    </setting>
+                    <setting string="Privacy Policy Display" help="Notice with link (recommended): customers are informed without an extra step. Mandatory checkbox: the form can only be sent after ticking the box, which may be regarded as an additional hurdle for the withdrawal.">
+                        <field name="revocation_privacy_mode" widget="radio"/>
                     </setting>
                 </block>
                 

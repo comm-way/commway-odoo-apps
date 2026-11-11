@@ -31,6 +31,9 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,process,approved,rejected"/>
                 </header>
                 <sheet>
+                    <div class="alert alert-warning" role="alert" invisible="sale_order_id or not order_reference">
+                        The order number entered by the customer could not be found. Please identify the order manually.
+                    </div>
                     <div class="oe_title">
                         <h1><field name="name"/></h1>
                     </div>
@@ -43,9 +46,13 @@
                         <group string="Details &amp; Reference">
                             <field name="revocation_date"/>
                             <field name="sale_order_id"/>
+                            <field name="order_reference" invisible="not order_reference"/>
                         </group>
                     </group>
                     <notebook>
+                        <page string="Items to Withdraw" name="revocation_items">
+                            <field name="revocation_items" placeholder="Entire order (no individual items specified)"/>
+                        </page>
                         <page string="Customer's Reason">
                             <field name="reason" placeholder="No reason provided..."/>
                         </page>

@@ -273,6 +273,7 @@ msgstr "Anzeigename"
 
 #. module: website_sale_revocation
 #: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__customer_email
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_receipt_mail_content
 msgid "Email"
 msgstr "E-Mail"
 
@@ -298,8 +299,8 @@ msgstr "Hat Nachricht"
 
 #. module: website_sale_revocation
 #: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
-msgid "I have read and accept the"
-msgstr "Ich habe die"
+msgid "I have read and accept the privacy policy."
+msgstr "Ich habe die Datenschutzerklärung gelesen und akzeptiere sie."
 
 #. module: website_sale_revocation
 #: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__id
@@ -350,8 +351,8 @@ msgstr "Zuletzt aktualisiert am"
 
 #. module: website_sale_revocation
 #: model_terms:ir.ui.view,arch_db:website_sale_revocation.res_config_settings_view_form_inherit_revocation
-msgid "Link to your privacy policy for the frontend checkbox."
-msgstr "Link zu Ihrer Datenschutzerklärung für das Kontrollkästchen im Frontend."
+msgid "Link to your privacy policy shown on the withdrawal form."
+msgstr "Link zu Ihrer Datenschutzerklärung, der im Widerrufsformular angezeigt wird."
 
 #. module: website_sale_revocation
 #: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__message_has_error
@@ -480,6 +481,7 @@ msgstr "Eingegangen"
 
 #. module: website_sale_revocation
 #: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__name
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_receipt_mail_content
 msgid "Reference"
 msgstr "Referenz"
 
@@ -597,8 +599,8 @@ msgstr ""
 
 #. module: website_sale_revocation
 #: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
-msgid "Submit Revocation Bindingly"
-msgstr "Widerruf verbindlich absenden"
+msgid "Confirm withdrawal"
+msgstr "Widerruf bestätigen"
 
 #. module: website_sale_revocation
 #: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_success_template
@@ -612,10 +614,8 @@ msgstr "Typ der Ausnahmeaktivität im Datensatz."
 
 #. module: website_sale_revocation
 #: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
-msgid "Use this form to easily and legally revoke your contract."
-msgstr ""
-"Nutzen Sie dieses Formular, um Ihren Vertrag unkompliziert und rechtssicher "
-"zu widerrufen."
+msgid "Use this form to withdraw from your contract online."
+msgstr "Mit diesem Formular können Sie Ihren Vertrag einfach online widerrufen."
 
 #. module: website_sale_revocation
 #: model_terms:ir.ui.view,arch_db:website_sale_revocation.res_config_settings_view_form_inherit_revocation
@@ -656,3 +656,136 @@ msgstr "z.B. SO00123"
 #: code:addons/website_sale_revocation/controllers/main.py:0
 msgid "The security check failed. Please try again."
 msgstr "Die Sicherheitsprüfung ist fehlgeschlagen. Bitte versuchen Sie es erneut."
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
+msgid "Which items do you want to withdraw? (Optional)"
+msgstr "Welche Artikel möchten Sie widerrufen? (Optional)"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
+msgid "e.g. item number or product name, one per line"
+msgstr "z.B. Artikelnummer oder Produktname, einer pro Zeile"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
+msgid "Leave empty to withdraw the entire order."
+msgstr "Leer lassen, um die gesamte Bestellung zu widerrufen."
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_receipt_mail_content
+msgid "Hello"
+msgstr "Hallo"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_receipt_mail_content
+msgid "Hello <t t-out=\"record.customer_name or ''\"/>,"
+msgstr "Hallo <t t-out=\"record.customer_name or ''\"/>,"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_receipt_mail_content
+msgid "We hereby confirm that we have received your withdrawal declaration with the following content:"
+msgstr "Hiermit bestätigen wir den Eingang Ihrer Widerrufserklärung mit folgendem Inhalt:"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_receipt_mail_content
+msgid "Received on"
+msgstr "Eingegangen am"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_receipt_mail_content
+msgid "Name"
+msgstr "Name"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_receipt_mail_content
+msgid "Order / contract"
+msgstr "Bestellung / Vertrag"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_receipt_mail_content
+msgid "Not specified"
+msgstr "Nicht angegeben"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_receipt_mail_content
+msgid "Withdrawal covers"
+msgstr "Widerruf umfasst"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_receipt_mail_content
+msgid "Entire order"
+msgstr "Gesamte Bestellung"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_receipt_mail_content
+msgid "Reason"
+msgstr "Begründung"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_receipt_mail_content
+msgid "We will review your withdrawal and get back to you as soon as possible."
+msgstr "Wir prüfen Ihren Widerruf und melden uns schnellstmöglich bei Ihnen."
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.view_website_revocation_form
+msgid "The order number entered by the customer could not be found. Please identify the order manually."
+msgstr "Die vom Kunden angegebene Bestellnummer wurde nicht gefunden. Bitte ordnen Sie die Bestellung manuell zu."
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.view_website_revocation_form
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__revocation_items
+msgid "Items to Withdraw"
+msgstr "Zu widerrufende Artikel"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.view_website_revocation_form
+msgid "Entire order (no individual items specified)"
+msgstr "Gesamte Bestellung (keine einzelnen Artikel angegeben)"
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__order_reference
+msgid "Order Reference (as entered)"
+msgstr "Bestellnummer (wie eingegeben)"
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__order_reference
+msgid "Order or contract number exactly as entered by the customer."
+msgstr "Bestell- bzw. Vertragsnummer genau so, wie vom Kunden eingegeben."
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,help:website_sale_revocation.field_website_revocation__revocation_items
+msgid "Items the customer wants to withdraw from. Empty means the entire order."
+msgstr "Artikel, die der Kunde widerrufen möchte. Leer bedeutet: gesamte Bestellung."
+
+#. module: website_sale_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_website_revocation__receipt_mail_content
+msgid "Receipt Confirmation Content"
+msgstr "Inhalt der Eingangsbestätigung"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.revocation_form_template
+msgid "Information on how we process your personal data can be found in our"
+msgstr "Informationen zur Verarbeitung Ihrer personenbezogenen Daten finden Sie in unserer"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.res_config_settings_view_form_inherit_revocation
+#: model:ir.model.fields,field_description:website_sale_revocation.field_res_company__revocation_privacy_mode
+#: model:ir.model.fields,field_description:website_sale_revocation.field_res_config_settings__revocation_privacy_mode
+msgid "Privacy Policy Display"
+msgstr "Anzeige der Datenschutzerklärung"
+
+#. module: website_sale_revocation
+#: model_terms:ir.ui.view,arch_db:website_sale_revocation.res_config_settings_view_form_inherit_revocation
+msgid "Notice with link (recommended): customers are informed without an extra step. Mandatory checkbox: the form can only be sent after ticking the box, which may be regarded as an additional hurdle for the withdrawal."
+msgstr "Hinweistext mit Link (empfohlen): Kunden werden ohne zusätzlichen Schritt informiert. Pflicht-Checkbox: Das Formular kann erst nach dem Anhaken gesendet werden, was als zusätzliche Hürde für den Widerruf gewertet werden kann."
+
+#. module: website_sale_revocation
+#: model:ir.model.fields.selection,name:website_sale_revocation.selection__res_company__revocation_privacy_mode__notice
+msgid "Notice with link"
+msgstr "Hinweistext mit Link"
+
+#. module: website_sale_revocation
+#: model:ir.model.fields.selection,name:website_sale_revocation.selection__res_company__revocation_privacy_mode__checkbox
+msgid "Mandatory checkbox"
+msgstr "Pflicht-Checkbox"

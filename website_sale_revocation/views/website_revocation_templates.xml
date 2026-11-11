@@ -6,7 +6,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <h1 class="mb-4">Revoke Contract</h1>
-                        <p class="text-muted">Use this form to easily and legally revoke your contract.</p>
+                        <p class="text-muted">Use this form to withdraw from your contract online.</p>
                         
                         <form action="/shop/revocation/submit" method="post" class="js_website_submit_form" id="revocation_form">
                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
@@ -33,18 +33,29 @@
                                 <label for="order_ref" class="form-label">Order Number / Contract Number</label>
                                 <input type="text" name="order_ref" id="order_ref" class="form-control" placeholder="e.g. SO00123" t-att-value="order_ref"/>
                             </div>
+
+                            <!-- Partial withdrawal (§ 13a FAGG / Art. 11a Directive 2023/2673) -->
+                            <div class="form-group mb-3">
+                                <label for="revocation_items" class="form-label">Which items do you want to withdraw? (Optional)</label>
+                                <textarea name="revocation_items" id="revocation_items" class="form-control" rows="3" placeholder="e.g. item number or product name, one per line"><t t-out="revocation_items"/></textarea>
+                                <div class="form-text">Leave empty to withdraw the entire order.</div>
+                            </div>
                             
                             <div class="form-group mb-4">
                                 <label for="reason" class="form-label">Reason (Optional)</label>
                                 <textarea name="reason" id="reason" class="form-control" rows="4"><t t-out="reason"/></textarea>
                             </div>
 
-                            <div class="mb-3 form-check">
+                            <!-- Privacy policy: notice with link (default) or mandatory checkbox (configurable) -->
+                            <div t-if="privacy_mode == 'checkbox'" class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="privacy_policy" name="privacy_policy" required="required"/>
-                                <label class="form-check-label" for="privacy_policy" style="font-weight: normal;">                                    
-                                    I have read and accept the <a t-att-href="privacy_url or '/privacy'" target="_blank">Privacy Policy</a>. *
+                                <label class="form-check-label" for="privacy_policy" style="font-weight: normal;">
+                                    <span>I have read and accept the privacy policy.</span> * (<a t-att-href="privacy_url or '/privacy'" target="_blank">Privacy Policy</a>)
                                 </label>
                             </div>
+                            <p t-else="" class="small text-muted mb-3">
+                                <span>Information on how we process your personal data can be found in our</span> <a t-att-href="privacy_url or '/privacy'" target="_blank">Privacy Policy</a>.
+                            </p>
                             
                             <!-- Cloudflare Turnstile: the token is posted as 'turnstile_captcha',
                                  which Odoo's ir.http._verify_request_recaptcha_token checks -->
@@ -61,7 +72,7 @@
                             <div class="alert alert-info small">By clicking the button below, you bindingly initiate the revocation process. You will immediately receive a receipt confirmation.</div>
                             
                             <button type="submit" class="btn btn-primary btn-lg w-100" id="submit_revocation_btn" disabled="disabled">
-                                Submit Revocation Bindingly
+                                Confirm withdrawal
                             </button>
                         </form>
                     </div>
@@ -111,5 +122,52 @@
                 <a href="/shop" class="btn btn-outline-primary mt-4">Back to Shop</a>
             </div>
         </t>
+    </template>
+
+    <!-- Content of the receipt confirmation e-mail (§ 13a (5) FAGG / Art. 11a Directive 2023/2673):
+         content of the withdrawal declaration plus date and time of receipt.
+         Used by website.revocation.receipt_mail_content and the e-mail template. -->
+    <template id="revocation_receipt_mail_content" name="Revocation Receipt Confirmation Content">
+        <div style="font-size: 13px; color: #243746; line-height: 1.5;">
+            <p style="margin: 0 0 12px 0;">Hello <t t-out="record.customer_name or ''"/>,</p>
+            <p style="margin: 0 0 12px 0;">We hereby confirm that we have received your withdrawal declaration with the following content:</p>
+            <table style="border-collapse: collapse; margin: 0 0 16px 0; font-size: 13px;">
+                <tr>
+                    <td style="padding: 4px 16px 4px 0; vertical-align: top; font-weight: bold;">Reference</td>
+                    <td style="padding: 4px 0; vertical-align: top;"><t t-out="record.name"/></td>
+                </tr>
+                <tr>
+                    <td style="padding: 4px 16px 4px 0; vertical-align: top; font-weight: bold;">Received on</td>
+                    <td style="padding: 4px 0; vertical-align: top;"><t t-out="received_at"/> (<t t-out="timezone"/>)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 4px 16px 4px 0; vertical-align: top; font-weight: bold;">Name</td>
+                    <td style="padding: 4px 0; vertical-align: top;"><t t-out="record.customer_name"/></td>
+                </tr>
+                <tr>
+                    <td style="padding: 4px 16px 4px 0; vertical-align: top; font-weight: bold;">Email</td>
+                    <td style="padding: 4px 0; vertical-align: top;"><t t-out="record.customer_email"/></td>
+                </tr>
+                <tr>
+                    <td style="padding: 4px 16px 4px 0; vertical-align: top; font-weight: bold;">Order / contract</td>
+                    <td style="padding: 4px 0; vertical-align: top;">
+                        <t t-if="order_display" t-out="order_display"/>
+                        <t t-else="">Not specified</t>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 4px 16px 4px 0; vertical-align: top; font-weight: bold;">Withdrawal covers</td>
+                    <td style="padding: 4px 0; vertical-align: top; white-space: pre-line;">
+                        <t t-if="record.revocation_items" t-out="record.revocation_items"/>
+                        <t t-else="">Entire order</t>
+                    </td>
+                </tr>
+                <tr t-if="record.reason">
+                    <td style="padding: 4px 16px 4px 0; vertical-align: top; font-weight: bold;">Reason</td>
+                    <td style="padding: 4px 0; vertical-align: top; white-space: pre-line;"><t t-out="record.reason"/></td>
+                </tr>
+            </table>
+            <p style="margin: 0 0 12px 0;">We will review your withdrawal and get back to you as soon as possible.</p>
+        </div>
     </template>
 </odoo>

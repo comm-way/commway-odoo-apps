@@ -25,6 +25,7 @@ class WebsiteRevocationController(http.Controller):
                 'customer_email': partner.email,
             })
         values['privacy_url'] = request.env.company.revocation_privacy_policy_url or '/privacy'
+        values['privacy_mode'] = request.env.company.revocation_privacy_mode or 'notice'
         # Cloudflare Turnstile site key (set via Website > Settings > Cloudflare Turnstile)
         values['turnstile_site_key'] = request.env['ir.config_parameter'].sudo().get_param('cf.turnstile_site_key')
         values['captcha_action'] = CAPTCHA_ACTION
@@ -69,24 +70,24 @@ class WebsiteRevocationController(http.Controller):
                 customer_name=post.get('customer_name'),
                 customer_email=post.get('customer_email'),
                 order_ref=post.get('order_ref'),
+                revocation_items=post.get('revocation_items'),
                 reason=post.get('reason'),
                 error=_("The security check failed. Please try again."),
             )
             return request.render("website_sale_revocation.revocation_form_template", values)
 
-        order_name = post.get('order_ref')
+        order_name = (post.get('order_ref') or '').strip()
         # Try to find the sale order in Odoo
         sale_order = request.env['sale.order'].sudo().search([('name', '=', order_name)], limit=1) if order_name else request.env['sale.order']
-
-        # If an order number was entered but not found, append it to the reason
-        reason = post.get('reason') or ''
-        if order_name and not sale_order:
-            reason = _("ATTENTION: Customer provided order number '%s' (not found in the system).\n\nReason:\n%s") % (order_name, reason)
 
         revocation_vals = {
             'customer_name': post.get('customer_name'),
             'customer_email': post.get('customer_email'),
-            'reason': reason.strip(),
+            # Keep the reference exactly as entered, even if no matching order was found
+            'order_reference': order_name or False,
+            # Partial withdrawal: items the customer wants to withdraw (empty = entire order)
+            'revocation_items': (post.get('revocation_items') or '').strip() or False,
+            'reason': (post.get('reason') or '').strip(),
             'sale_order_id': sale_order.id if sale_order else False,
             'partner_id': request.env.user.partner_id.id if request.env.user.partner_id != request.env.ref('base.public_partner') else False,
         }
